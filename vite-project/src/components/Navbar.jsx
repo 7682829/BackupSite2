@@ -19,7 +19,7 @@ const Navbar = () => {
 
   
   return (
-    <div className="bg-white dark:bg-black shadow-sm">
+    <div className="shadow-sm">
       <header className={`${styles.header} text-black dark:text-white`}>
         <Link to='/' className={`${styles.logo} text-black dark:text-white`}>AURÉLINE</Link>
         
@@ -72,7 +72,7 @@ const Navbar = () => {
           </svg>
           
           {token && (
-            <div className={`${styles.dropdownMenu} group-hover:block bg-white dark:bg-black border dark:border-gray-700`}>
+            <div className={`${styles.dropdownMenu} group-hover:block border dark:border-gray-700`}>
               <div className='flex flex-col gap-2 w-36 py-3 px-5 text-gray-500 dark:text-gray-400'>
                 <p className='cursor-pointer hover:text-black dark:hover:text-white'>My Profile</p>
                 <p onClick={() => navigate('/orders')} className='cursor-pointer hover:text-black dark:hover:text-white'>Orders</p>
@@ -84,7 +84,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`${styles.mobileMenu} ${visible ? styles.active : ''} bg-white dark:bg-black`}> 
+      <div className={`${styles.mobileMenu} ${visible ? styles.active : ''}`}> 
         <button onClick={() => setVisible(false)} className={`${styles.closeButton} text-black dark:text-white`}>
           ✕
         </button>

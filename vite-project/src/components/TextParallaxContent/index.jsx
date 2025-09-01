@@ -108,7 +108,7 @@ const ExampleContent = ({ title }) => (
 
 export const TextParallaxContentExample = () => {
   return (
-    <div className="bg-white dark:bg-black">
+    <div className="bg-white dark:bg-gray-950">
       <TextParallaxContent
         imgUrl="/src/assets/assets/new_frontend_assets/par_trendy.jpg"
         subheading="LOREM"

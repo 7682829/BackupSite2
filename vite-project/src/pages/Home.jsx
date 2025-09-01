@@ -18,7 +18,9 @@ const Home = () => {
       <div className="py-16">
         <TestimonialsSection />
       </div>
-      <NewsletterBox/>
+      <div className="-mx-4 sm:-mx-[5vw] md:-mx-[7vw] lg:-mx-[9vw]">
+        <NewsletterBox/>
+      </div>
     </div>
   )
 }

@@ -7,8 +7,8 @@ const NewsletterBox = () => {
   }
 
   return (
-    <div className="w-full bg-white dark:bg-black py-20 px-6">
-      <div className="max-w-6xl mx-auto text-center">
+    <div className="w-full py-20">
+      <div className="max-w-6xl mx-auto text-center px-6">
         <p className="text-3xl sm:text-4xl font-semibold text-gray-800 dark:text-white">
           Subscribe now and get 15% off!!
         </p>
@@ -18,7 +18,7 @@ const NewsletterBox = () => {
 
         <form
           onSubmit={onSubmitHandler}
-          className="w-full sm:w-2/3 lg:w-1/2 flex items-center gap-3 mx-auto mt-10 border border-gray-300 dark:border-gray-600 pl-4 pr-2 py-2 rounded-lg bg-white dark:bg-black"
+          className="w-full sm:w-2/3 lg:w-1/2 flex items-center gap-3 mx-auto mt-10 border border-gray-300 dark:border-gray-600 pl-4 pr-2 py-2 rounded-lg bg-white dark:bg-gray-900"
         >
           <input
             className="flex-1 outline-none bg-transparent text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 px-2 py-3"

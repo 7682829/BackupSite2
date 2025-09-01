@@ -102,7 +102,7 @@ const BentoGrid = () => {
   ];
 
   return (
-    <section className="w-full bg-white dark:bg-black py-20">
+    <section className="w-full py-20">
       <div className="max-w-[95vw] mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
