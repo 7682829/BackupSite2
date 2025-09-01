@@ -72,11 +72,12 @@ const Navbar = () => {
           </svg>
           
           {token && (
-            <div className={`${styles.dropdownMenu} group-hover:block border dark:border-gray-700`}>
-              <div className='flex flex-col gap-2 w-36 py-3 px-5 text-gray-500 dark:text-gray-400'>
-                <p className='cursor-pointer hover:text-black dark:hover:text-white'>My Profile</p>
-                <p onClick={() => navigate('/orders')} className='cursor-pointer hover:text-black dark:hover:text-white'>Orders</p>
-                <p onClick={logout} className='cursor-pointer hover:text-black dark:hover:text-white'>Logout</p>
+            <div className={`${styles.dropdownMenu} group-hover:block bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 shadow-lg dark:shadow-xl`}>
+              <div className='flex flex-col gap-1 w-40 py-3 px-2'>
+                <p className='cursor-pointer text-gray-700 dark:text-gray-200 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 px-3 py-2 rounded-md transition-all duration-200 font-medium'>My Profile</p>
+                <p onClick={() => navigate('/orders')} className='cursor-pointer text-gray-700 dark:text-gray-200 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 px-3 py-2 rounded-md transition-all duration-200 font-medium'>Orders</p>
+                <hr className='my-1 border-gray-200 dark:border-gray-600' />
+                <p onClick={logout} className='cursor-pointer text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 px-3 py-2 rounded-md transition-all duration-200 font-medium'>Logout</p>
               </div>
             </div>
           )}
