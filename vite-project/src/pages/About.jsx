@@ -37,21 +37,21 @@ export default function About() {
 
   const team = [
     {
-      name: 'Alexandra Chen',
+      name: 'Simran Kaur',
       role: 'Founder & Creative Director',
-      image: '/src/assets/assets/new_frontend_assets/about_img.png',
+      image: '/src/assets/assets/new_frontend_assets/about_pfp.png',
       bio: 'Former Vogue editor with 15 years in luxury fashion.'
     },
     {
-      name: 'Marcus Rodriguez',
+      name: 'Anjali Menon',
       role: 'Head of Design',
-      image: '/src/assets/assets/new_frontend_assets/bag1.jpg',
+      image: '/src/assets/assets/new_frontend_assets/about_pfp.png',
       bio: 'Graduate of Parsons School of Design with expertise in contemporary fashion.'
     },
     {
-      name: 'Sophie Laurent',
+      name: 'Tanya Malhotra',
       role: 'Sustainability Director',
-      image: '/src/assets/assets/new_frontend_assets/bag2.jpg',
+      image: '/src/assets/assets/new_frontend_assets/about_pfp.png',
       bio: 'Leading our mission towards ethical and sustainable luxury fashion practices.'
     }
   ];

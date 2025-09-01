@@ -67,9 +67,9 @@ const Login = () => {
         {/* Left Card - Membership Benefits */}
         <div className='flex-1 bg-white dark:bg-black rounded-2xl border border-gray-200 dark:border-gray-800 p-8 shadow-2xl shadow-gray-300/40 dark:shadow-black/60 transform hover:scale-[1.02] transition-all duration-300'>
           <div>
-            <h2 className='text-2xl font-bold mb-4 text-gray-900 dark:text-white'>JOIN THE LUXE EXPERIENCE</h2>
+            <h2 className='text-2xl font-bold mb-4 text-gray-900 dark:text-white'>LOREM IPSUM DOLOR</h2>
             <p className='text-gray-600 dark:text-gray-300 mb-6 text-sm'>
-              Become a member and unlock exclusive benefits, early access to collections, and personalized luxury shopping experiences.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.
             </p>
             
             <div className='space-y-3'>
@@ -86,9 +86,9 @@ const Login = () => {
             
             <div className='mt-6 p-4 rounded-lg border border-gray-100 dark:border-gray-800 bg-gray-100 dark:bg-gray-900'>
               <p className='text-xs italic text-gray-900 dark:text-white'>
-                "The VIP experience at LUXE is unmatched. The personalized service and exclusive access makes every purchase feel special."
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation."
               </p>
-              <p className='text-xs mt-2 text-gray-900 dark:text-white'>— Sarah M., VIP Member</p>
+              <p className='text-xs mt-2 text-gray-900 dark:text-white'>— Lorem D., VIP Member</p>
             </div>
           </div>
         </div>

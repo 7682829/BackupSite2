@@ -19,7 +19,7 @@ const Footer = () => {
           <div>
             <h1 className="mb-5 text-3xl font-semibold text-gray-900 dark:text-white">AURÉLINE</h1>
             <p className="w-full md:w-2/3 text-gray-600 dark:text-gray-300 leading-relaxed">
-              сука блять!
+              lorem ipsum dolor.
             </p>
           </div>
 
@@ -56,8 +56,8 @@ const Footer = () => {
               Connect with Us
             </p>
             <ul className="flex flex-col gap-2 text-gray-600 dark:text-gray-300">
-              <li>+420 678-456-123</li>
-              <li>support@forever.com</li>
+              <li>+91 9876543210</li>
+              <li>support@aureline.com</li>
             </ul>
           </div>
         </div>
@@ -66,7 +66,7 @@ const Footer = () => {
       {/* Bottom Section */}
       <div className="border-t border-gray-300 dark:border-gray-600 w-full">
         <p className="py-6 text-sm text-center text-gray-600 dark:text-gray-300">
-          © 2025 forever.com - All Rights Reserved.
+          © 2025 aureline.com - All Rights Reserved.
         </p>
       </div>
     </footer>
