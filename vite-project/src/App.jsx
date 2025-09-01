@@ -12,6 +12,7 @@ import Orders from './pages/Orders'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import SearchBar from './components/SearchBar'
+import PageTransition from './components/PageTransition'
 import { ToastContainer } from 'react-toastify'
 import Verify from './pages/Verify'
 import Wishlist from './pages/Wishlist'
@@ -27,19 +28,23 @@ const App = () => {
             <ToastContainer/>
             <Navbar/>
             <SearchBar />
-            <Routes>
-              <Route path='/' element={<Home/>} />
-              <Route path='/collection' element={<Collection/>} />
-              <Route path='/about' element={<About/>} />
-              <Route path='/contact' element={<Contact/>} />
-              <Route path='/product/:productId' element={<Product/>} />
-              <Route path='/cart' element={<Cart/>} />
-              <Route path='/login' element={<Login/>} />
-              <Route path='/place-order' element={<PlaceOrder/>} />
-              <Route path='/orders' element={<Orders/>} />
-              <Route path='/verify' element={<Verify/>} />
-              <Route path="/wishlist" element={<Wishlist />} />
-            </Routes>
+            <div className="route-wrapper">
+              <PageTransition>
+                <Routes>
+                  <Route path='/' element={<Home/>} />
+                  <Route path='/collection' element={<Collection/>} />
+                  <Route path='/about' element={<About/>} />
+                  <Route path='/contact' element={<Contact/>} />
+                  <Route path='/product/:productId' element={<Product/>} />
+                  <Route path='/cart' element={<Cart/>} />
+                  <Route path='/login' element={<Login/>} />
+                  <Route path='/place-order' element={<PlaceOrder/>} />
+                  <Route path='/orders' element={<Orders/>} />
+                  <Route path='/verify' element={<Verify/>} />
+                  <Route path="/wishlist" element={<Wishlist />} />
+                </Routes>
+              </PageTransition>
+            </div>
           </ShopContextProvider>
         </div>
         <Footer/>

@@ -32,6 +32,14 @@ const Cart = () => {
     }
   },[cartItems, products]) 
 
+  const handleProceedToCheckout = () => {
+    if (cartData.length === 0) {
+      alert('NO PRODUCTS IN THE CART! Please add some products before proceeding to checkout.');
+      return;
+    }
+    navigate('/place-order');
+  };
+
 
 
 
@@ -42,7 +50,23 @@ const Cart = () => {
       </div>
 
       <div>
-        {
+        {cartData.length === 0 ? (
+          <div className='text-center py-16'>
+            <div className='mb-6'>
+              <svg className='mx-auto h-24 w-24 text-gray-300 dark:text-gray-600' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1} d='M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6M16 16h.01M9 20a1 1 0 100-2 1 1 0 000 2zm7 0a1 1 0 100-2 1 1 0 000 2z' />
+              </svg>
+            </div>
+            <h3 className='text-xl font-medium text-gray-900 dark:text-white mb-2'>Your cart is empty</h3>
+            <p className='text-gray-500 dark:text-gray-400 mb-6'>Add some products to your cart to get started!</p>
+            <button 
+              onClick={() => navigate('/collection')} 
+              className='bg-black dark:bg-white text-white dark:text-black px-6 py-2 rounded-lg border-2 border-black dark:border-white hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors duration-200 font-medium'
+            >
+              Continue Shopping
+            </button>
+          </div>
+        ) : (
           cartData.map((item,index) => {
           const productData = products.find((product)=> product._id === item._id);
 
@@ -65,14 +89,23 @@ const Cart = () => {
           )
 
           })
-        }
+        )}
       </div>
 
       <div className='flex justify-end my-20'>
 	          <div className='w-full sm:w-[450px]'>
 		            <CartTotal/>
                 <div className='w-full text-end'>
-                <button onClick={()=> navigate('/place-order')} className='bg-black dark:bg-white text-white dark:text-black text-sm my-8 px-8 py-3 rounded-lg border-2 border-black dark:border-white hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors duration-200 font-medium'>PROCEED TO CHECKOUT</button>
+                <button 
+                  onClick={handleProceedToCheckout} 
+                  className={`text-sm my-8 px-8 py-3 rounded-lg border-2 transition-colors duration-200 font-medium ${
+                    cartData.length === 0 
+                      ? 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 border-gray-300 dark:border-gray-600 cursor-not-allowed' 
+                      : 'bg-black dark:bg-white text-white dark:text-black border-black dark:border-white hover:bg-gray-800 dark:hover:bg-gray-200'
+                  }`}
+                >
+                  PROCEED TO CHECKOUT
+                </button>
                 </div>
 
 	          </div>
