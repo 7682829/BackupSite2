@@ -17,11 +17,24 @@ const Navbar = () => {
     logout
   } = useContext(ShopContext);
 
+  const logoStyle = {
+    height: 'clamp(2rem, 6vw, 4rem)',
+    minHeight: '2rem',
+    maxHeight: '4rem'
+  };
+
   
   return (
     <div className="shadow-sm">
       <header className={`${styles.header} text-black dark:text-white`}>
-        <Link to='/' className={`${styles.logo} text-black dark:text-white`}>AURÉLINE</Link>
+        <Link to='/' className={`${styles.logo} text-black dark:text-white flex items-center`}>
+          <img 
+            src="/src/assets/assets/new_frontend_assets/aur_logo_new.png" 
+            alt="AURÉLINE Logo" 
+            className="w-auto object-contain"
+            style={logoStyle}
+          />
+        </Link>
         
         <div className={`${styles.hamburger} ${visible ? styles.active : ''}`} onClick={() => setVisible(!visible)}>
         <span className={`${styles.bar} bg-black dark:bg-white`}></span>

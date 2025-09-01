@@ -40,7 +40,7 @@ export default function About() {
       name: 'Simran Kaur',
       role: 'Founder & Creative Director',
       image: '/src/assets/assets/new_frontend_assets/about_pfp.png',
-      bio: 'Former Vogue editor with 15 years in luxury fashion.'
+      bio: 'Former Vogue editor with 15 years of experience in high-end fashion and luxury brand development.'
     },
     {
       name: 'Anjali Menon',
