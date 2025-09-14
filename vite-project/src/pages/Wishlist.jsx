@@ -6,8 +6,35 @@ const Wishlist = () => {
   const { 
     wishlistItems, 
     removeFromWishlist,
-    products 
+    products,
+    token,
+    navigate
   } = useContext(ShopContext);
+
+  // If user is not logged in, show login prompt
+  if (!token) {
+    return (
+      <div className="px-4 py-8 min-h-[calc(100vh-200px)]">
+        <div className="flex flex-col items-center justify-center py-20 min-h-[400px]">
+          <div className="mb-8">
+            <svg className="mx-auto h-24 w-24 text-gray-300 dark:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+          </div>
+          <h1 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Sign In Required</h1>
+          <p className="text-gray-500 dark:text-gray-400 mb-8 text-center max-w-md">
+            Please sign in to view your wishlist and save your favorite items.
+          </p>
+          <button 
+            onClick={() => navigate('/login')}
+            className="bg-black dark:bg-white text-white dark:text-black px-8 py-3 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors duration-200"
+          >
+            Sign In
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const wishlistProducts = Object.keys(wishlistItems)
     .map(id => products.find(item => item._id === id))

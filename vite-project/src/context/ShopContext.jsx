@@ -7,16 +7,28 @@ export const ShopContext =  createContext();
 
 const ShopContextProvider = (props) => { 
 
-    const currency = '₹';
+    const currency = '$';
     const delivery_fee = 10;
     const backendUrl = import.meta.env.VITE_BACKEND_URL
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(false);
-    const [cartItems,setCartItems] = useState({}); 
+    const [cartItems,setCartItems] = useState(() => {
+        // Initialize cart from localStorage for non-logged users
+        const savedCart = localStorage.getItem('cartItems');
+        return savedCart ? JSON.parse(savedCart) : {};
+    }); 
     const [products, setProducts] = useState([]); 
     const [token, setToken] = useState(localStorage.getItem('token') || '');
     const navigate = useNavigate();
-    const [wishlistItems, setWishlistItems] = useState({});
+    const [wishlistItems, setWishlistItems] = useState(() => {
+        // Initialize wishlist from localStorage only if user is logged in
+        const token = localStorage.getItem('token');
+        if (token) {
+            const savedWishlist = localStorage.getItem('wishlistItems');
+            return savedWishlist ? JSON.parse(savedWishlist) : {};
+        }
+        return {};
+    });
 
     const addToCart = async (itemId, size, subCategory) => {
         if (!token) {
@@ -52,14 +64,20 @@ const ShopContextProvider = (props) => {
             cartData[itemId][finalSize] = 1;
         }
         setCartItems(cartData);
+        
+        // Save to localStorage for non-logged users or as backup
+        localStorage.setItem('cartItems', JSON.stringify(cartData));
 
-        try {
-            await axios.post(backendUrl + '/api/cart/add', {itemId, size: finalSize}, {headers:{token}})
-            toast.success('Added to cart');
-        } 
-        catch (error) {
-            console.log(error);
-            toast.error(error.message)
+        if (token) {
+            try {
+
+                await axios.post(backendUrl + '/api/cart/add', {itemId, size: finalSize}, {headers:{token}})
+                
+            } 
+            catch (error) {
+                console.log(error);
+                toast.error(error.message)
+            }
         }
     }
 
@@ -84,6 +102,9 @@ const ShopContextProvider = (props) => {
             let cartData = structuredClone(cartItems);
             cartData[itemId][size] = quantity;
             setCartItems(cartData);
+            
+            // Save to localStorage
+            localStorage.setItem('cartItems', JSON.stringify(cartData));
 
             if (token) {
                 try {
@@ -133,12 +154,19 @@ const ShopContextProvider = (props) => {
         try {
             const response = await axios.post(backendUrl + '/api/cart/get',{}, {headers:{token}})
             if (response.data.success) {
-                setCartItems(response.data.cartData)  
+                setCartItems(response.data.cartData)
+                // Also save to localStorage as backup
+                localStorage.setItem('cartItems', JSON.stringify(response.data.cartData));
             }
         } 
         catch (error) {
             console.log(error);
             toast.error(error.message)
+            // If database fails, try to load from localStorage
+            const savedCart = localStorage.getItem('cartItems');
+            if (savedCart) {
+                setCartItems(JSON.parse(savedCart));
+            }
         }
     }
 
@@ -147,73 +175,106 @@ const ShopContextProvider = (props) => {
     }, [])
 
     useEffect(() => {
-        if (!token && localStorage.getItem('token')) 
-        {
-            setToken(localStorage.getItem('token'))
-            getUserCart(localStorage.getItem('token'))
+        if (token) {
+            getUserCart(token);
+            // Load wishlist when user logs in
+            const savedWishlist = localStorage.getItem('wishlistItems');
+            if (savedWishlist) {
+                setWishlistItems(JSON.parse(savedWishlist));
+            }
+        } else {
+            // Clear wishlist when user logs out
+            setWishlistItems({});
         }
-    },[])
+    }, [token])
+
+    // Merge localStorage cart with database cart when user logs in
+    const mergeLocalCartWithDatabase = async () => {
+        const localCart = localStorage.getItem('cartItems');
+        if (localCart && token) {
+            const localCartData = JSON.parse(localCart);
+            // If there's local cart data, sync it with the database
+            for (const itemId in localCartData) {
+                for (const size in localCartData[itemId]) {
+                    const quantity = localCartData[itemId][size];
+                    if (quantity > 0) {
+                        try {
+                            await axios.post(backendUrl + '/api/cart/add', 
+                                {itemId, size, quantity}, 
+                                {headers:{token}}
+                            );
+                        } catch (error) {
+                            console.log('Error syncing cart item:', error);
+                        }
+                    }
+                }
+            }
+            // After syncing, get the updated cart from database
+            getUserCart(token);
+        }
+    }
+
+    // Add logout function to clear wishlist when user logs out
+    const logout = () => {
+        setToken('');
+        setCartItems({});
+        setWishlistItems({}); // Clear wishlist on logout
+        localStorage.removeItem('token');
+        localStorage.removeItem('cartItems'); // Clear cart on logout
+        localStorage.removeItem('wishlistItems'); // Clear wishlist on logout
+        navigate('/login');
+    };
 
     const addToWishlist = (itemId) => {
         if (!token) {
-            toast.error('Log In to add to wishlist');
+            toast.error('Log In to wishlist a product');
             navigate('/login');
             return;
         }
-        setWishlistItems((prev) => ({
-            ...prev,
-            [itemId]: true
-        }));
-        toast.success('Added to wishlist');
+        
+        setWishlistItems((prev) => {
+            const newWishlistItems = {
+                ...prev,
+                [itemId]: true
+            };
+            // Save to localStorage only if user is logged in
+            localStorage.setItem('wishlistItems', JSON.stringify(newWishlistItems));
+            return newWishlistItems;
+        });
     };
 
     const removeFromWishlist = (itemId) => {
+        if (!token) {
+            toast.error('Log In to manage your wishlist');
+            navigate('/login');
+            return;
+        }
+        
         setWishlistItems((prev) => {
             const newItems = { ...prev };
             delete newItems[itemId];
+            // Save to localStorage
+            localStorage.setItem('wishlistItems', JSON.stringify(newItems));
             return newItems;
         });
-        toast.success('Removed from wishlist');
-    };
-
-    // Remove from cart utility
-    const removeFromCart = (itemId, size) => {
-        setCartItems((prev) => {
-            const newCart = { ...prev };
-            if (newCart[itemId] && newCart[itemId][size]) {
-                delete newCart[itemId][size];
-                if (Object.keys(newCart[itemId]).length === 0) {
-                    delete newCart[itemId];
-                }
-            }
-            return newCart;
-        });
-        toast.success('Removed from cart');
     };
 
     const isInWishlist = (itemId) => {
+        // Only show wishlist status if user is logged in
+        if (!token) return false;
         return wishlistItems[itemId] ? true : false;
     };
 
     const getWishlistCount = () => {
+        // Only count wishlist items if user is logged in
+        if (!token) return 0;
         return Object.keys(wishlistItems).length;
     }
-
-
-    // Logout function
-    const logout = () => {
-        localStorage.removeItem('token');
-        setToken('');
-        setCartItems({});
-        setWishlistItems({});
-        toast.success('Logged out successfully!');
-        navigate('/login');
-    };
 
     const value = { 
         products, currency, delivery_fee,
         search, setSearch, showSearch, setShowSearch,
-        cartItems, addToCart, removeFromCart, setCartItems, getCartCount, updateQuantity, getCartAmount, navigate, backendUrl,
+        cartItems, addToCart,setCartItems, getCartCount, updateQuantity, getCartAmount, navigate, backendUrl,
         setToken, token, wishlistItems, addToWishlist, removeFromWishlist, isInWishlist, getWishlistCount,
         logout
     };

@@ -9,6 +9,7 @@ import Cart from './pages/Cart'
 import Login from './pages/Login'
 import PlaceOrder from './pages/PlaceOrder'
 import Orders from './pages/Orders'
+import ForYou from './pages/ForYou'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import SearchBar from './components/SearchBar'
@@ -32,6 +33,7 @@ const App = () => {
               <PageTransition>
                 <Routes>
                   <Route path='/' element={<Home/>} />
+                  <Route path='/for-you' element={<ForYou/>} />
                   <Route path='/collection' element={<Collection/>} />
                   <Route path='/about' element={<About/>} />
                   <Route path='/contact' element={<Contact/>} />

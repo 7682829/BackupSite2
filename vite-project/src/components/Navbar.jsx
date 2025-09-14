@@ -44,6 +44,7 @@ const Navbar = () => {
 
       <ul className={`${styles.menu} text-black dark:text-white`}>
         <li><NavLink to='/' className="text-black dark:text-white">HOME</NavLink></li>
+        <li><NavLink to='/for-you' className="text-black dark:text-white">FOR YOU</NavLink></li>
         <li><NavLink to='/collection' className="text-black dark:text-white">COLLECTIONS</NavLink></li>
         <li><NavLink to='/about' className="text-black dark:text-white">ABOUT</NavLink></li>
         <li><NavLink to='/contact' className="text-black dark:text-white">CONTACT US</NavLink></li>
@@ -103,6 +104,7 @@ const Navbar = () => {
           ✕
         </button>
         <NavLink onClick={() => setVisible(false)} to='/' className="text-black dark:text-white">HOME</NavLink>
+        <NavLink onClick={() => setVisible(false)} to='/for-you' className="text-black dark:text-white">FOR YOU</NavLink>
         <NavLink onClick={() => setVisible(false)} to='/collection' className="text-black dark:text-white">COLLECTIONS</NavLink>
         <NavLink onClick={() => setVisible(false)} to='/about' className="text-black dark:text-white">ABOUT</NavLink>
         <NavLink onClick={() => setVisible(false)} to='/contact' className="text-black dark:text-white">CONTACT US</NavLink>
