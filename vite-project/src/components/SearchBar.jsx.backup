@@ -3,6 +3,7 @@ import { ShopContext } from '../context/ShopContext'
 import { assets } from '../assets/assets/frontend_assets/assets';
 import { useLocation } from 'react-router-dom';
 
+
 const SearchBar = () => {
     const {search, setSearch, showSearch, setShowSearch} = useContext(ShopContext);
     const [visible, setVisible] = useState(false);
@@ -15,9 +16,6 @@ const SearchBar = () => {
         }
         else{
             setVisible(false);
-            // Clear search when leaving collection page
-            setSearch('');
-            setInputValue('');
         }
     }, [location])
 
@@ -29,12 +27,6 @@ const SearchBar = () => {
         if (e.key === 'Enter') {
             handleSearch();
         }
-    };
-
-    const handleClose = () => {
-        setShowSearch(false);
-        setSearch('');
-        setInputValue('');
     };
 
     return showSearch && visible ? (
@@ -55,9 +47,12 @@ const SearchBar = () => {
                     onClick={handleSearch}
                 />
             </div>
-            <img onClick={handleClose} className='inline w-3 cursor-pointer dark:invert' src={assets.cross_icon} alt=""/>
+            <img onClick={()=>setShowSearch(false)} className='inline w-3 cursor-pointer dark:invert' src={assets.cross_icon} alt=""/>
         </div>
     ) : null
+}
+
+export default SearchBar
 }
 
 export default SearchBar
