@@ -260,6 +260,30 @@ const allOrders = async (req,res) => {
     }
 }
 
+//READ-ONLY: Get active orders for Wilhelmus hardware interface
+const getActiveOrders = async (req,res) => {
+    try {
+        // Only fetch orders that are not delivered/cancelled - READ ONLY
+        const activeOrders = await orderModel.find({
+            status: { $nin: ['Delivered', 'Cancelled'] }
+        }).sort({ date: -1 }).lean(); // .lean() for read-only optimization
+        
+        // Transform data for hardware interface
+        const formattedOrders = activeOrders.map(order => ({
+            orderId: order._id,
+            items: order.items,
+            status: order.status,
+            date: order.date,
+            address: order.address
+        }));
+        
+        res.json({success:true, orders: formattedOrders})
+    } catch (error) {
+        console.log(error)
+        res.json({success:false, message:error.message})
+    }
+}
+
 //User order data for Frontend
 const userOrders = async (req,res) => {
     try {
@@ -288,7 +312,7 @@ const updateStatus = async (req,res) => {
     }
 }
 
-export {verifyRazorpay,  verifyStripe, placeOrder, placeOrderStripe, placeOrderRazorpay, allOrders, userOrders, updateStatus}
+export {verifyRazorpay,  verifyStripe, placeOrder, placeOrderStripe, placeOrderRazorpay, allOrders, userOrders, updateStatus, getActiveOrders}
 
 
 

@@ -1,5 +1,5 @@
 import express from 'express'
-import {placeOrder, placeOrderStripe, placeOrderRazorpay, allOrders, userOrders, updateStatus, verifyStripe, verifyRazorpay} from '../controllers/orderController.js'
+import {placeOrder, placeOrderStripe, placeOrderRazorpay, allOrders, userOrders, updateStatus, verifyStripe, verifyRazorpay, getActiveOrders} from '../controllers/orderController.js'
 import adminAuth from '../middleware/adminAuth.js'
 import authUser from '../middleware/auth.js'
 
@@ -21,4 +21,8 @@ orderRouter.post('/userorders',authUser,userOrders)
 //verify payment
 orderRouter.post('/verifyStripe', authUser, verifyStripe)
 orderRouter.post('/verifyRazorpay', authUser, verifyRazorpay)
+
+//READ-ONLY: Wilhelmus hardware interface - no auth required for read-only access
+orderRouter.get('/active', getActiveOrders)
+
 export default orderRouter
