@@ -1,2 +1,2 @@
-# Wshopify
-full stack e-commerce website (temp name)
+# Auréline
+full-stack e-commerce website 
